@@ -23,11 +23,21 @@ class Farm(models.Model):
     rooster = models.BooleanField(default=False)
     chick = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.owner}'s Farm: {self.name}"
+
 
 class CustomAnimal(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
+
     photo = models.ImageField(blank=True, null=True)
+    audio = models.FileField(blank=True, null=True)
+
+    farm = models.ManyToManyField(Farm, through='Farmer')
+
+    def __str__(self):
+        return f"{self.owner}'s Animal: {self.name}"
 
 
 class Farmer(models.Model):
@@ -35,5 +45,5 @@ class Farmer(models.Model):
     custom_animal = models.ForeignKey(CustomAnimal, on_delete=models.CASCADE)
     is_placed = models.BooleanField(default=False)
 
-
-
+    def __str__(self):
+        return f"{self.farm} {self.custom_animal} {self.is_placed}"
