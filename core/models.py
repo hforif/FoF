@@ -23,10 +23,10 @@ class Farm(models.Model):
     rooster = models.BooleanField(default=False)
     chick = models.BooleanField(default=False)
 
-    farm = models.ManyToManyField('CustomAnimal', through='Farmer')
+    animals = models.ManyToManyField('CustomAnimal', through='Farmer')
 
     def __str__(self):
-        return f"{self.owner}'s Farm: {self.name}"
+        return f"{self.owner}'s farm: {self.name}"
 
 
 class CustomAnimal(models.Model):
@@ -37,7 +37,7 @@ class CustomAnimal(models.Model):
     audio = models.FileField(blank=True, null=True, upload_to="core/audio")
 
     def __str__(self):
-        return f"{self.owner}'s Animal: {self.name}"
+        return f"{self.owner}'s animal: {self.name}"
 
 
 class Farmer(models.Model):
