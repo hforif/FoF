@@ -9,7 +9,7 @@ class Profile(models.Model):
     photo = models.ImageField(blank=True, null=True)
 
     def __str__(self):
-        return self.user
+        return f"{self.user.username} Profile"
 
 
 class Farm(models.Model):
@@ -23,6 +23,8 @@ class Farm(models.Model):
     rooster = models.BooleanField(default=False)
     chick = models.BooleanField(default=False)
 
+    farm = models.ManyToManyField('CustomAnimal', through='Farmer')
+
     def __str__(self):
         return f"{self.owner}'s Farm: {self.name}"
 
@@ -33,8 +35,6 @@ class CustomAnimal(models.Model):
 
     photo = models.ImageField(blank=True, null=True)
     audio = models.FileField(blank=True, null=True)
-
-    farm = models.ManyToManyField(Farm, through='Farmer')
 
     def __str__(self):
         return f"{self.owner}'s Animal: {self.name}"
