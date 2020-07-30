@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm Detail</title>
+</head>
+<body>
+    <!--<div>
+        <h3>Farm Info</h3>
+        <ul>
+            <li>owner : {{ farm.owner }}</li>
+            <li>name : {{ farm.name }}</li>
+        </ul>
+    </div>-->
+    <div>
+        <h3>기본 동물 목록(누르면 소리가 납니다!)</h3>
+        <button type="button">
+            <img src="{% static 'core/images/donkey.png' %}" width="100px">
+        </button>
+
+        <button type="button">
+            <img src="{% static 'core/images/dog.png' %}" width="100px">
+        </button>
+
+        <button type="button">
+            <img src="{% static 'core/images/cat.png' %}" width="100px">
+        </button>
+
+        <button type="button">
+            <img src="{% static 'core/images/rooster.png' %}" width="100px">
+        </button>
+
+        <button type="button">
+            <img src="{% static 'core/images/chick.png' %}" width="100px">
+        </button>
+    </div>
+    <div>
+        <h3>커스텀 동물 목록</h3>
+    </div>
+    <a href="">
+        <button type="button">농장 수정하기</button>
+    </a>
+</body>
+</html>

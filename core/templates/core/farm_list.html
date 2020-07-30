@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm List</title>
+</head>
+<body>
+<h1>Forest of Forif</h1>
+<hr>
+{% for farm in farm_list %}
+    <div>
+        <a href="{% url 'core:farm_detail' 'farm.pk' %}" target="_blank"><button type="button">{{ farm.name }}</button></a>
+    </div>
+{% endfor %}
+</body>
+</html>
