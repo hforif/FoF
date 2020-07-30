@@ -23,21 +23,21 @@ class Farm(models.Model):
     rooster = models.BooleanField(default=False)
     chick = models.BooleanField(default=False)
 
-    farm = models.ManyToManyField('CustomAnimal', through='Farmer')
+    animals = models.ManyToManyField('CustomAnimal', through='Farmer')
 
     def __str__(self):
-        return f"{self.owner}'s Farm: {self.name}"
+        return f"{self.owner}'s farm: {self.name}"
 
 
 class CustomAnimal(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
 
-    photo = models.ImageField(blank=True, null=True)
-    audio = models.FileField(blank=True, null=True)
+    photo = models.ImageField(blank=True, null=True, upload_to="core/images")
+    audio = models.FileField(blank=True, null=True, upload_to="core/audio")
 
     def __str__(self):
-        return f"{self.owner}'s Animal: {self.name}"
+        return f"{self.owner}'s animal: {self.name}"
 
 
 class Farmer(models.Model):
