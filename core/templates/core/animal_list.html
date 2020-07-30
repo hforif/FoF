@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .animal img {
+            width: 250px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<h2>Animal List</h2>
+<a href="{% url 'add_animal' %}">나만의 동물 추가하기</a>
+<div class="animal">
+    <img src="{% static 'core/images/donkey.png' %}" alt="donkey">
+    <audio controls src="{% static 'core/audio/donkey.mp3' %}"></audio>
+</div>
+<div class="animal">
+    <img src="{% static 'core/images/dog.png' %}" alt="dog">
+    <audio controls src="{% static 'core/audio/dog.mp3' %}"></audio>
+</div>
+<div class="animal">
+    <img src="{% static 'core/images/cat.png' %}" alt="cat">
+    <audio controls src="{% static 'core/audio/cat.mp3' %}"></audio>
+</div>
+<div class="animal">
+    <img src="{% static 'core/images/rooster.png' %}" alt="rooster">
+    <audio controls src="{% static 'core/audio/rooster.mp3' %}"></audio>
+</div>
+<div class="animal">
+    <img src="{% static 'core/images/chick.png' %}" alt="chick">
+    <audio controls src="{% static 'core/audio/chicks.mp3' %}"></audio>
+</div>
+{% for animal in animals %}
+    <div class="animal">
+        {% if animal.photo %}
+            <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+            <audio controls src="{{ animal.audio.url }}">
+            </audio>
+        {% endif %}
+    </div>
+{% endfor %}
+<div><a href="{% url 'add_animal' %}"></a></div>
+</body>
+</html>
