@@ -33,8 +33,8 @@ class CustomAnimal(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
 
-    photo = models.ImageField(blank=True, null=True)
-    audio = models.FileField(blank=True, null=True)
+    photo = models.ImageField(blank=True, null=True, upload_to="core/images")
+    audio = models.FileField(blank=True, null=True, upload_to="core/audio")
 
     def __str__(self):
         return f"{self.owner}'s Animal: {self.name}"
