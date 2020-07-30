@@ -5,12 +5,23 @@
     <title>Farm List</title>
 </head>
 <body>
-<h1>Forest of Forif</h1>
-<hr>
-{% for farm in farm_list %}
+    <h1>Forest of Forif</h1>
+    <hr>
     <div>
-        <a href="{% url 'core:farm_detail' 'farm.pk' %}" target="_blank"><button type="button">{{ farm.name }}</button></a>
+    <h3>농장 목록</h3>
+        {% for farm in farm_list %}
+            <div>
+                <a href="{% url 'farm_detail' farm.pk %}">{{ farm.name }}</a>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
+    <hr>
+    <div>
+        <a href="{% url 'create_farm' %}">New Farm</a>
+    </div>
+    <hr>
+    <div>
+        <a href="{% url 'show_animal_list' %}">Animal List</a>
+    </div>
 </body>
 </html>

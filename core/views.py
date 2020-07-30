@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-from .models import Profile, Farm, CustomAnimal
+from .models import Profile, Farm, CustomAnimal, Farmer
 from .forms import FarmForm
 
 
@@ -12,24 +12,26 @@ def farm_list(request):
     })
 
 
-def farm_detail(request):
-    # farm = get_object_or_404(Farm, pk=pk)
-    return render(request, 'core/farm_detail.html')
+def farm_detail(request, pk):
+    farm = get_object_or_404(Farm, pk=pk)
+    animals = CustomAnimal.objects.filter(owner=farm.owner)
+    return render(request, 'core/farm_detail.html', {'farm':farm, 'animals':animals})
 
 
 def create_farm(request, farm=None):
-    # POST 요청
+    # POST 요청 -> POST 데이터를 처리하는 역할
     if request.method == 'POST':
         form = FarmForm(request.POST, request.FILES)
         if form.is_valid():
-            farm = form.save()
-            return redirect('??')
+            farm = Farm.object.create(**form.cleaned_data)
+            return redirect('/')
     # GET요청
     else:
         form = FarmForm()
-        return render(request, 'core/create_farm.html', {
-            'form': form,
-        })
+
+    return render(request, 'core/create_farm.html', {
+        'form': form,
+    })
 
 
 def edit_farm(request, pk):
@@ -39,7 +41,7 @@ def edit_farm(request, pk):
 
 # Create your views here.
 def show_animal_list(request):
-    user = User.objects.get(username='asus')
+    user = User.objects.get(username='dayoung')
     profile = Profile.objects.get(user=user)
     animals = CustomAnimal.objects.filter(owner=profile)
     return render(request, 'core/animal_list.html', {'animals': animals})

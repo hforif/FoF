@@ -6,39 +6,60 @@
     <title>Farm Detail</title>
 </head>
 <body>
-    <!--<div>
-        <h3>Farm Info</h3>
-        <ul>
-            <li>owner : {{ farm.owner }}</li>
-            <li>name : {{ farm.name }}</li>
-        </ul>
-    </div>-->
+    <h3>Farm Info</h3>
+    owner : {{ farm.owner }}
+    name : {{ farm.name }}
+
     <div>
         <h3>기본 동물 목록(누르면 소리가 납니다!)</h3>
-        <button type="button">
-            <img src="{% static 'core/images/donkey.png' %}" width="100px">
-        </button>
+        {% if farm.donkey %}
+            <button type="button">
+                <img src="{% static 'core/images/donkey.png' %}" width="100px">
+            </button>
+        {% endif %}
 
-        <button type="button">
-            <img src="{% static 'core/images/dog.png' %}" width="100px">
-        </button>
+        {% if farm.dog %}
+            <button type="button">
+                <img src="{% static 'core/images/dog.png' %}" width="100px">
+            </button>
+        {% endif %}
 
-        <button type="button">
-            <img src="{% static 'core/images/cat.png' %}" width="100px">
-        </button>
+        {% if farm.cat %}
+            <button type="button">
+                <img src="{% static 'core/images/cat.png' %}" width="100px">
+            </button>
+        {% endif %}
 
-        <button type="button">
-            <img src="{% static 'core/images/rooster.png' %}" width="100px">
-        </button>
+        {% if farm.rooster %}
+            <button type="button">
+                <img src="{% static 'core/images/rooster.png' %}" width="100px">
+            </button>
+        {% endif %}
 
-        <button type="button">
-            <img src="{% static 'core/images/chick.png' %}" width="100px">
-        </button>
+        {% if farm.chick %}
+            <button type="button">
+                <img src="{% static 'core/images/chick.png' %}" width="100px">
+            </button>
+        {% endif %}
     </div>
+
     <div>
         <h3>커스텀 동물 목록</h3>
+        {% for animal in animals %}
+            <div>
+                name : {{ animal.name }}
+                {% if animal.photo %}
+                    <img src="{{ animal.photo.url }}" width="100px" alt="animal.name">
+                {% endif %}
+                {% if animal.audio %}
+                    <audio controls src="{{ animal.audio.url }}"></audio>
+                {% endif %}
+                <hr>
+            </div>
+        {% endfor %}
     </div>
-    <a href="">
+
+    <a href="{% url 'edit_farm' farm.pk %}">
         <button type="button">농장 수정하기</button>
     </a>
 </body>
