@@ -38,8 +38,9 @@
     <div class="animal">
         {% if animal.photo %}
             <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
-            <audio controls src="{{ animal.audio.url }}">
-            </audio>
+        {% endif %}
+        {% if animal.audio %}
+            <audio controls src="{{ animal.audio.url }}"></audio>
         {% endif %}
     </div>
 {% endfor %}
