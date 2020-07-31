@@ -62,7 +62,7 @@ def edit_farm(request, pk):
 
 
 def show_animal_list(request):
-    user = User.objects.get(username='dayoung')
+    user = User.objects.get(pk=1)
     profile = Profile.objects.get(user=user)
     animals = CustomAnimal.objects.filter(owner=profile)
     return render(request, 'core/animal_list.html', {'animals': animals})

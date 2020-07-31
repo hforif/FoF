@@ -1,11 +1,7 @@
-<!DOCTYPE html>
+{% extends 'core/_base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Farm Detail</title>
-</head>
-<body>
+{% block content %}
+
     <h3>Farm Info</h3>
     owner : {{ farm.owner }}<br>
     name : {{ farm.name }}
@@ -68,5 +64,4 @@
     <a href="{% url 'farm_list' %}">
         <button type="button">농장 목록</button>
     </a>
-</body>
-</html>
+{% endblock %}
