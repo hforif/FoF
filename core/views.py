@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from .models import Profile, Farm, CustomAnimal, Farmer
 from .forms import FarmForm
+from .form import CustomAnimalForm
 
 
 def farm_list(request):
@@ -62,7 +63,7 @@ def edit_farm(request, pk):
 
 
 def show_animal_list(request):
-    user = User.objects.get(username='dayoung')
+    user = User.objects.get(pk=1)
     profile = Profile.objects.get(user=user)
     animals = CustomAnimal.objects.filter(owner=profile)
     return render(request, 'core/animal_list.html', {'animals': animals})

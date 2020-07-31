@@ -1,84 +1,74 @@
+{% extends 'core/_base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .animal img {
-            width: 250px;
-            height: auto;
-        }
-    </style>
-</head>
-<body>
-<h2>Animal List</h2>
-<a href="{% url 'add_animal' %}">나만의 동물 추가하기</a>
+{% block content %}
+    <div class="row">
+        <h2>Animal List</h2>
+        <a href="{% url 'add_animal' %}">나만의 동물 추가하기</a>
 
-<div class="animal">
-    <button type="button" onclick="play('basic_donkey_audio')">
-        <img src="{% static 'core/images/donkey.png' %}" alt="donkey">
-    </button>
-    <audio id="basic_donkey_audio" src="{% static 'core/audio/donkey.mp3' %}"></audio>
-</div>
+        <div class="animal">
+            <button type="button" onclick="play('basic_donkey_audio')">
+                <img src="{% static 'core/images/donkey.png' %}" alt="donkey">
+            </button>
+            <audio id="basic_donkey_audio" src="{% static 'core/audio/donkey.mp3' %}"></audio>
+        </div>
 
-<div class="animal">
-    <button type="button" onclick="play('basic_dog_audio')">
-        <img src="{% static 'core/images/dog.png' %}" alt="dog">
-    </button>
-    <audio id="basic_dog_audio" src="{% static 'core/audio/dog.mp3' %}"></audio>
-</div>
+        <div class="animal">
+            <button type="button" onclick="play('basic_dog_audio')">
+                <img src="{% static 'core/images/dog.png' %}" alt="dog">
+            </button>
+            <audio id="basic_dog_audio" src="{% static 'core/audio/dog.mp3' %}"></audio>
+        </div>
 
-<div class="animal">
-    <button type="button" onclick="play('basic_cat_audio')">
-        <img src="{% static 'core/images/cat.png' %}" alt="cat">
-    </button>
-    <audio id="basic_cat_audio" src="{% static 'core/audio/cat.mp3' %}"></audio>
-</div>
+        <div class="animal">
+            <button type="button" onclick="play('basic_cat_audio')">
+                <img src="{% static 'core/images/cat.png' %}" alt="cat">
+            </button>
+            <audio id="basic_cat_audio" src="{% static 'core/audio/cat.mp3' %}"></audio>
+        </div>
 
-<div class="animal">
-    <button type="button" onclick="play('basic_rooster_audio')">
-        <img src="{% static 'core/images/rooster.png' %}" alt="rooster">
-    </button>
-    <audio id="basic_rooster_audio" src="{% static 'core/audio/sick_chicken.mp3' %}"></audio>
-</div>
+        <div class="animal">
+            <button type="button" onclick="play('basic_rooster_audio')">
+                <img src="{% static 'core/images/rooster.png' %}" alt="rooster">
+            </button>
+            <audio id="basic_rooster_audio" src="{% static 'core/audio/sick_chicken.mp3' %}"></audio>
+        </div>
 
-<div class="animal">
-    <button type="button" onclick="play('basic_chicks_audio')">
-        <img src="{% static 'core/images/chick.png' %}" alt="chick">
-    </button>
-    <audio id="basic_chicks_audio" src="{% static 'core/audio/chicks.mp3' %}"></audio>
-</div>
+        <div class="animal">
+            <button type="button" onclick="play('basic_chicks_audio')">
+                <img src="{% static 'core/images/chick.png' %}" alt="chick">
+            </button>
+            <audio id="basic_chicks_audio" src="{% static 'core/audio/chicks.mp3' %}"></audio>
+        </div>
 
 
-{% for animal in animals %}
-    <div class="animal">
-        {% if animal.photo %}
-            {% if animal.audio %}
-                <button type="button" onclick="play('{{ animal.owner.user.username }}_{{ animal.id }}_audio')">
-                    <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
-                </button>
-                <audio id="{{ animal.owner.user.username }}_{{ animal.id }}_audio" src="{{ animal.audio.url }}">
-                    이 브라우저는 오디오를 제공하지 않습니다.
-                    이 기회에 Chrome을 써 봅시다
-                </audio>
-            {% else %}
-                <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
-            {% endif %}
-        {% endif %}
+        {% for animal in animals %}
+            <div class="animal">
+                {% if animal.photo %}
+                    {% if animal.audio %}
+                        <button type="button" onclick="play('{{ animal.owner.user.username }}_{{ animal.id }}_audio')">
+                            <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+                        </button>
+                        <audio id="{{ animal.owner.user.username }}_{{ animal.id }}_audio" src="{{ animal.audio.url }}">
+                            이 브라우저는 오디오를 제공하지 않습니다.
+                            이 기회에 Chrome을 써 봅시다
+                        </audio>
+                    {% else %}
+                        <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
-</body>
 
-<script>
-    function play(id) {
-        let audio = document.getElementById(id);
-        if (audio.paused) {
-            audio.currentTime = 0;
-            audio.play();
-        } else {
-            audio.pause()
+    <script>
+        function play(id) {
+            let audio = document.getElementById(id);
+            if (audio.paused) {
+                audio.currentTime = 0;
+                audio.play();
+            } else {
+                audio.pause()
+            }
         }
-    }
-</script>
-</html>
+    </script>
+{% endblock %}

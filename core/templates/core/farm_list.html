@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Farm List</title>
-</head>
-<body>
+{% extends 'core/_base.html' %}
+{% block content %}
     <h1>Forest of Forif</h1>
     <hr>
     <div>
-    <h3>농장 목록</h3>
+        <h3>농장 목록</h3>
         {% for farm in farm_list %}
             <div>
                 <a href="{% url 'farm_detail' farm.pk %}">{{ farm.name }}</a>
@@ -23,5 +18,4 @@
     <div>
         <a href="{% url 'show_animal_list' %}">Animal List</a>
     </div>
-</body>
-</html>
+{% endblock %}
