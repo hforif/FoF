@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from .models import Profile, Farm, CustomAnimal, Farmer
 from .forms import FarmForm
+from .form import CustomAnimalForm
 
 
 def farm_list(request):
@@ -51,7 +52,6 @@ def edit_farm(request, pk):
             for animal in animals:
                 if request.POST.get(f'{animal.name}'):
                     Farmer.objects.create(farm=farm, custom_animal=animal, is_placed=True)
-                    print(animal.name, '생성함')
             return redirect('farm_detail', pk=farm.pk)
     else:
         form = FarmForm(instance=farm)
@@ -66,7 +66,6 @@ def show_animal_list(request):
     profile = Profile.objects.get(user=user)
     animals = CustomAnimal.objects.filter(owner=profile)
     return render(request, 'core/animal_list.html', {'animals': animals})
-
 
 def add_animal(request):
     if request.method == 'POST':
