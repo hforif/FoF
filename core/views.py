@@ -69,4 +69,15 @@ def show_animal_list(request):
 
 
 def add_animal(request):
-    return render(request, 'core/animal_edit.html')
+    if request.method == 'POST':
+        form = CustomAnimalForm(request.POST, request.FILES)    # animal.photo = request.FILES.get('photo', False)
+                                                                # animal.audio = request.FILES.get('audio', False)
+        if form.is_valid():
+            animal = form.save(commit=False)
+            # animal.owner = request.user의 프로필
+            animal.save()
+
+        return redirect('show_animal_list')
+    else:
+        form = CustomAnimalForm()
+    return render(request, 'core/animal_edit.html', {'form': form})

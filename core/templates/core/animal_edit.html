@@ -6,5 +6,10 @@
 </head>
 <body>
 <h2>Add Your Own Animal</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="만들기">
+</form>
 </body>
 </html>
