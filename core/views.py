@@ -14,18 +14,16 @@ def farm_list(request):
 
 def farm_detail(request, pk):
     farm = get_object_or_404(Farm, pk=pk)
-    animals = CustomAnimal.objects.filter(owner=farm.owner)
-    return render(request, 'core/farm_detail.html', {'farm':farm, 'animals':animals})
+    farmers = Farmer.objects.filter(farm=farm)
+    return render(request, 'core/farm_detail.html', {'farm':farm, 'farmers':farmers})
 
 
-def create_farm(request, farm=None):
-    # POST 요청 -> POST 데이터를 처리하는 역할
+def create_farm(request):
     if request.method == 'POST':
         form = FarmForm(request.POST, request.FILES)
         if form.is_valid():
-            farm = Farm.object.create(**form.cleaned_data)
-            return redirect('/')
-    # GET요청
+            form.save()
+            return redirect('farm_list')
     else:
         form = FarmForm()
 
@@ -36,10 +34,18 @@ def create_farm(request, farm=None):
 
 def edit_farm(request, pk):
     farm = get_object_or_404(Farm, pk=pk)
-    return create_farm(request, farm)
+    if request.method == 'POST':
+        form = FarmForm(request.POST, request.FILES,instance=farm)
+        if form.is_valid():
+            farm = form.save()
+            return redirect('farm_detail', pk=farm.pk)
+    else:
+        form = FarmForm(instance=farm)
+    return render(request, 'core/create_farm.html', {
+        'form':form,
+    })
 
 
-# Create your views here.
 def show_animal_list(request):
     user = User.objects.get(username='dayoung')
     profile = Profile.objects.get(user=user)

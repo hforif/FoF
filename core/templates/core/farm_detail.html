@@ -7,7 +7,7 @@
 </head>
 <body>
     <h3>Farm Info</h3>
-    owner : {{ farm.owner }}
+    owner : {{ farm.owner }}<br>
     name : {{ farm.name }}
 
     <div>
@@ -45,22 +45,28 @@
 
     <div>
         <h3>커스텀 동물 목록</h3>
-        {% for animal in animals %}
-            <div>
-                name : {{ animal.name }}
-                {% if animal.photo %}
-                    <img src="{{ animal.photo.url }}" width="100px" alt="animal.name">
-                {% endif %}
-                {% if animal.audio %}
-                    <audio controls src="{{ animal.audio.url }}"></audio>
-                {% endif %}
-                <hr>
-            </div>
+        {% for farmer in farmers %}
+            {% if farmer.is_placed %}
+                <div>
+                    name : {{ farmer.custom_animal.name }}
+                    {% if farmer.custom_animal.photo %}
+                        <img src="{{ farmer.custom_animal.photo.url }}" width="100px" alt="farmer.custom_animal.name">
+                    {% endif %}
+                    {% if farmer.custom_animal.audio %}
+                        <audio controls src="{{ farmer.custom_animal.audio.url }}"></audio>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 
     <a href="{% url 'edit_farm' farm.pk %}">
         <button type="button">농장 수정하기</button>
+    </a>
+    <br>
+    <a href="{% url 'farm_list' %}">
+        <button type="button">농장 목록</button>
     </a>
 </body>
 </html>
