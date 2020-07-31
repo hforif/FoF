@@ -28,7 +28,7 @@ def create_farm(request):
             farm = form.save()
             # farm = Farm.objects.create(**form.cleaned_data)
             for animal in animals:
-                if request.POST.get(f'animal.name'):
+                if request.POST.get(f'{animal.name}'):
                     Farmer.objects.create(farm=farm, custom_animal=animal, is_placed=True)
             return redirect('farm_list')
     else:
@@ -49,8 +49,9 @@ def edit_farm(request, pk):
         if form.is_valid():
             farm = form.save()
             for animal in animals:
-                if request.POST.get(f'animal.name'):
+                if request.POST.get(f'{animal.name}'):
                     Farmer.objects.create(farm=farm, custom_animal=animal, is_placed=True)
+                    print(animal.name, '생성함')
             return redirect('farm_detail', pk=farm.pk)
     else:
         form = FarmForm(instance=farm)
